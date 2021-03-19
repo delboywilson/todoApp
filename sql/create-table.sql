@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS todos;
+
+ CREATE TABLE IF NOT EXISTS todos (
+    user_id INT GENERATED ALWAYS AS IDENTITY,
+    todo VARCHAR(50) NOT NULL, 
+    complete VARCHAR(50) NOT NULL,
+    PRIMARY KEY (user_id)
+);

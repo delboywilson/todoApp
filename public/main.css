@@ -7,10 +7,12 @@
 }
 
 .container {
-  display: flex;
+  display: block;
   flex-direction: column;
   background-color: cornsilk;
   align-items: center;
+  width: 350px;
+  margin: 20px auto;
 }
 header {
   display: flex;
@@ -31,4 +33,9 @@ footer {
   align-items: center;
   justify-content: center;
   bottom: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }

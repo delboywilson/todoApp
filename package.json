@@ -4,6 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "create-database": "createdb todoApp",
+    "drop-database": "dropdb todoApp",
+    "create-table": "psql -h localhost -d todoApp -f sql/create-table.sql",
+    "seed-table": "psql -h localhost -d todoApp -f sql/seed-table.sql",
     "dev": "nodemon -e js,ejs,css app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

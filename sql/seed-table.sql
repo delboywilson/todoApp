@@ -1,0 +1,1 @@
+INSERT INTO todos(todo, complete) VALUES ('Todo 5', 'Todo 0'), ('Todo 6', 'Todo 1'), ('Todo 7', 'Todo 2'), ('Todo 8', 'Todo 3'), ('Todo 9', 'Todo 4');

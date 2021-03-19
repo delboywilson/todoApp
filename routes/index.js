@@ -1,28 +1,28 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.render("index", { task: todoList, complete: complete });
-});
-
 let todoList = ["todo1", "todo2", "todo3"];
+let completeList = ["todo4"];
+
+router.get("/", (req, res) => {
+  res.render("pages/index", { todoList: todoList, completeList: completeList });
+});
 
 router.post("/addtodo", function (req, res) {
   let newTodo = req.body.newtodo;
   todoList.push(newTodo);
   console.log(todoList);
-  res.render("pages/home");
+  res.redirect("/");
 });
 
-let completeList = ["todo4"];
-router.post("/removetask", function (req, res) {
+router.post("/removetodo", function (req, res) {
   let completeTodo = req.body.check;
   if (typeof completeTodo === "string") {
-    complete.push(completeTodo);
+    completeList.push(completeTodo);
     todoList.splice(todoList.indexOf(completeTodo), 1);
   } else if (typeof completeTodo === "object") {
     for (var i = 0; i < completeTodo.length; i++) {
-      complete.push(completeTodo[i]);
+      completeList.push(completeTodo[i]);
       todoList.splice(todoList.indexOf(completeTodo[i]), 1);
     }
   }
