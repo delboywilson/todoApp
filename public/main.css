@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  border: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: cornsilk;
+  align-items: center;
+}
+header {
+  display: flex;
+  position: sticky;
+  width: 100vw;
+  height: 80px;
+  background-color: cornflowerblue;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+}
+
+footer {
+  display: flex;
+  position: fixed;
+  width: 100vw;
+  background-color: cornflowerblue;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+}
