@@ -1,11 +1,23 @@
 const express = require("express");
 const router = express.Router();
+const { pool, db } = require("../database");
 
-let todoList = ["todo1", "todo2", "todo3"];
 let completeList = ["todo4"];
 
 router.get("/", (req, res) => {
-  res.render("pages/index", { todoList: todoList, completeList: completeList });
+  db.any("SELECT todo FROM doing;")
+    .then((todoList) => {
+      console.log(todoList);
+      res.render("pages/index", {
+        todoList: todoList,
+        completeList: completeList,
+      });
+    })
+    .catch((err) => {
+      res.render("pages/error", {
+        err: err,
+      });
+    });
 });
 
 router.post("/addtodo", function (req, res) {

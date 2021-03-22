@@ -1,1 +1,3 @@
-INSERT INTO todos(todo, complete) VALUES ('Todo 5', 'Todo 0'), ('Todo 6', 'Todo 1'), ('Todo 7', 'Todo 2'), ('Todo 8', 'Todo 3'), ('Todo 9', 'Todo 4');
+INSERT INTO doing(todo) VALUES ('write todo app'), ('play guitar'), ('shopping'), ('make dinner'), ('have a beer');
+
+INSERT INTO completed(complete) VALUES ('test todo app'), ('eat a peach'), ('buying'), ('play drums'), ('have beers');
