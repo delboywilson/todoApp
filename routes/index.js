@@ -2,16 +2,25 @@ const express = require("express");
 const router = express.Router();
 const { pool, db } = require("../database");
 
-let completeList = ["todo4"];
+router.get("/", async (req, res) => {
+  try {
+    let todoList = await db.any("SELECT todo FROM doing;");
+    let completeList = await db.any("SELECT complete FROM completed;");
+    res.render("pages/index", {
+      todoList: todoList,
+      completeList: completeList,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
-router.get("/", (req, res) => {
-  db.any("SELECT todo FROM doing;")
-    .then((todoList) => {
-      console.log(todoList);
-      res.render("pages/index", {
-        todoList: todoList,
-        completeList: completeList,
-      });
+router.post("/addtodo", function (req, res) {
+  let newTodo = req.body.newtodo;
+  console.log(newTodo);
+  db.none("INSERT INTO doing(todo) VALUES ($1);", [newTodo])
+    .then(() => {
+      res.redirect("/");
     })
     .catch((err) => {
       res.render("pages/error", {
@@ -20,25 +29,69 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/addtodo", function (req, res) {
-  let newTodo = req.body.newtodo;
-  todoList.push(newTodo);
-  console.log(todoList);
-  res.redirect("/");
-});
-
-router.post("/removetodo", function (req, res) {
+router.post("/movetodo", function (req, res) {
   let completeTodo = req.body.check;
-  if (typeof completeTodo === "string") {
-    completeList.push(completeTodo);
-    todoList.splice(todoList.indexOf(completeTodo), 1);
-  } else if (typeof completeTodo === "object") {
+  if (typeof completeTodo === "string")
+    db.any("INSERT INTO completed(complete) VALUES($1);", [completeTodo])
+      .then(() => {
+        let moveTodo = req.body.check;
+        db.none("DELETE FROM doing WHERE todo = $1;", [moveTodo]);
+      })
+      .catch((err) => {
+        res.render("pages/error", {
+          err: err,
+        });
+      });
+  else if (typeof completeTodo === "object") {
     for (var i = 0; i < completeTodo.length; i++) {
-      completeList.push(completeTodo[i]);
-      todoList.splice(todoList.indexOf(completeTodo[i]), 1);
+      db.any("INSERT INTO completed(complete) VALUES($1);", [completeTodo[i]])
+        .then(() => {
+          let moveTodo = req.body.check;
+          console.log(moveTodo);
+          for (var i = 0; i < moveTodo.length; i++) {
+            db.none("DELETE FROM doing WHERE todo = $1", moveTodo[i]);
+          }
+        })
+        .then(() => {
+          console.log("Moved item");
+        })
+        .catch((err) => {
+          res.render("pages/error", {
+            err: err,
+          });
+        });
     }
   }
   res.redirect("/");
 });
+
+// router.post("/deletetodo", function (req, res) {
+//   let deleteTodo = req.body.delete;
+//   console.log(deleteTodo);
+//   if (typeof deleteTodo === "string")
+//     db.none("DELETE FROM completed WHERE complete = $1;", [deleteTodo])
+//       .then(() => {
+//         res.redirect("/");
+//       })
+//       .catch((err) => {
+//         res.render("pages/error", {
+//           err: err,
+//         });
+//       });
+//   else if (typeof deleteTodo === "object") {
+//     for (var i = 0; i < deleteTodo.length; i++) {
+//       db.none("DELETE FROM completed WHERE complete = $1", deleteTodo[i])
+//         .then(() => {
+//           console.log("Removed item");
+//         })
+//         .catch((err) => {
+//           res.render("pages/error", {
+//             err: err,
+//           });
+//         });
+//     }
+//     res.redirect("/");
+//   }
+// });
 
 module.exports = router;

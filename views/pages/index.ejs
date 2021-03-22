@@ -10,10 +10,14 @@
       todoList[i].todo %>
     </li>
     <% } %>
-    <button formaction="/removetodo" type="submit">Remove</button>
+    <button formaction="/movetodo" type="submit">Move</button>
+    <h2>Completed todo</h2>
+    <% for(let i = 0; i < completeList.length; i++){ %>
+    <li>
+      <input type="checkbox" name="delete" checked /><%=
+      completeList[i].complete %>
+    </li>
+    <% } %>
+    <button formaction="/deletetodo" type="submit">Delete</button>
   </form>
-  <h2>Completed todo</h2>
-  <% for(let i = 0; i < completeList.length; i++){ %>
-  <li><input type="checkbox" checked /><%= completeList[i] %></li>
-  <% } %>
 </div>
