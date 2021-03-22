@@ -12,19 +12,36 @@ header {
   position: sticky;
   width: 100vw;
   height: 80px;
-  background-color: cornflowerblue;
+  background-color: rgb(45, 50, 54);
   align-items: center;
   justify-content: center;
+  color: antiquewhite;
+  text-shadow: 1px 1px black;
   top: 0;
+}
+
+body {
+  background-color: rgb(57, 63, 68);
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  /* margin-left: auto;
+  margin-right: auto; */
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  /* background-color: cornsilk; */
-  /* align-items: center; */
-  width: 20%;
-  margin: 3% auto;
+  margin-top: 2%;
+  /* margin-left: 15%;
+  margin-right: 15%; */
+  width: 75%;
+  max-width: 600px;
 }
 
 ul {
@@ -33,30 +50,54 @@ ul {
   list-style: none;
 }
 
-h2,
+h2 {
+  color: antiquewhite;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  font-weight: 400;
+  text-shadow: 1px 1px black;
+}
 button {
   margin-bottom: 2%;
   margin-top: 2%;
-}
-button {
   font-size: large;
+  width: 100%;
+}
+button:hover {
+  box-shadow: 1px 1px 1px 1px rgb(4, 107, 243);
 }
 
 .input {
-  width: 80%;
+  width: 100%;
   font-size: large;
+  margin-bottom: 1%;
 }
 
-.list {
+.list,
+.error {
   font-size: larger;
+  color: antiquewhite;
+  margin-bottom: 1%;
+  text-shadow: 1px 1px black;
+}
+
+hr {
+  background-color: antiquewhite;
+  height: 1px;
+  width: 100%;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 footer {
   display: flex;
   position: fixed;
   width: 100vw;
-  background-color: cornflowerblue;
+  height: 5%;
+  background-color: rgb(45, 50, 54);
   align-items: center;
   justify-content: center;
+  color: antiquewhite;
+  text-shadow: 1px 1px black;
   bottom: 0;
 }
