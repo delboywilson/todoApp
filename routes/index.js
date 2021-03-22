@@ -12,6 +12,9 @@ router.get("/", async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+    res.render("pages/error", {
+      err: err,
+    });
   }
 });
 
@@ -43,12 +46,12 @@ router.post("/movetodo", function (req, res) {
         });
       });
   else if (typeof completeTodo === "object") {
-    for (var i = 0; i < completeTodo.length; i++) {
+    for (let i = 0; i < completeTodo.length; i++) {
       db.any("INSERT INTO completed(complete) VALUES($1);", [completeTodo[i]])
         .then(() => {
           let moveTodo = req.body.check;
           console.log(moveTodo);
-          for (var i = 0; i < moveTodo.length; i++) {
+          for (let i = 0; i < moveTodo.length; i++) {
             db.none("DELETE FROM doing WHERE todo = $1", moveTodo[i]);
           }
         })
@@ -62,36 +65,36 @@ router.post("/movetodo", function (req, res) {
         });
     }
   }
-  res.redirect("/");
+  return res.redirect("/");
 });
 
-// router.post("/deletetodo", function (req, res) {
-//   let deleteTodo = req.body.delete;
-//   console.log(deleteTodo);
-//   if (typeof deleteTodo === "string")
-//     db.none("DELETE FROM completed WHERE complete = $1;", [deleteTodo])
-//       .then(() => {
-//         res.redirect("/");
-//       })
-//       .catch((err) => {
-//         res.render("pages/error", {
-//           err: err,
-//         });
-//       });
-//   else if (typeof deleteTodo === "object") {
-//     for (var i = 0; i < deleteTodo.length; i++) {
-//       db.none("DELETE FROM completed WHERE complete = $1", deleteTodo[i])
-//         .then(() => {
-//           console.log("Removed item");
-//         })
-//         .catch((err) => {
-//           res.render("pages/error", {
-//             err: err,
-//           });
-//         });
-//     }
-//     res.redirect("/");
-//   }
-// });
+router.post("/deletetodo", function (req, res) {
+  let deleteTodo = req.body.complete;
+  console.log(deleteTodo);
+  if (typeof deleteTodo === "string")
+    db.none("DELETE FROM completed WHERE complete = $1;", [deleteTodo])
+      .then(() => {
+        res.redirect("/");
+      })
+      .catch((err) => {
+        res.render("pages/error", {
+          err: err,
+        });
+      });
+  else if (typeof deleteTodo === "object") {
+    for (let i = 0; i < deleteTodo.length; i++) {
+      db.none("DELETE FROM completed WHERE complete = $1", deleteTodo[i])
+        .then(() => {
+          console.log("Removed item");
+        })
+        .catch((err) => {
+          res.render("pages/error", {
+            err: err,
+          });
+        });
+    }
+    res.redirect("/");
+  }
+});
 
 module.exports = router;

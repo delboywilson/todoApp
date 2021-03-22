@@ -4,16 +4,9 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  font-family: "Quicksand", sans-serif;
 }
 
-.container {
-  display: block;
-  flex-direction: column;
-  background-color: cornsilk;
-  align-items: center;
-  width: 350px;
-  margin: 20px auto;
-}
 header {
   display: flex;
   position: sticky;
@@ -25,6 +18,39 @@ header {
   top: 0;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  /* background-color: cornsilk; */
+  /* align-items: center; */
+  width: 20%;
+  margin: 3% auto;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h2,
+button {
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+button {
+  font-size: large;
+}
+
+.input {
+  width: 80%;
+  font-size: large;
+}
+
+.list {
+  font-size: larger;
+}
+
 footer {
   display: flex;
   position: fixed;
@@ -33,9 +59,4 @@ footer {
   align-items: center;
   justify-content: center;
   bottom: 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
 }

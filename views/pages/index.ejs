@@ -1,23 +1,36 @@
 <div class="container">
-  <h2>Todo List</h2>
+  <h2>Add a new item</h2>
   <form action="/addtodo" method="POST">
-    <input type="text" name="newtodo" placeholder="create new todo" />
-    <button>Add Todo</button>
-    <h2>Added Todo</h2>
-    <% for( let i = 0; i < todoList.length; i++){ %>
-    <li>
-      <input type="checkbox" name="check" value="<%= todoList[i].todo %>" /> <%=
-      todoList[i].todo %>
-    </li>
-    <% } %>
+    <input
+      class="input"
+      type="text"
+      name="newtodo"
+      placeholder="create new todo"
+    />
+    <button>Add item</button>
+    <h2>Todos</h2>
+    <ul>
+      <% for( let i = 0; i < todoList.length; i++){ %>
+      <li class="list">
+        <input type="checkbox" name="check" value="<%= todoList[i].todo %>" />
+        <%= todoList[i].todo %>
+      </li>
+      <% } %>
+    </ul>
     <button formaction="/movetodo" type="submit">Move</button>
-    <h2>Completed todo</h2>
-    <% for(let i = 0; i < completeList.length; i++){ %>
-    <li>
-      <input type="checkbox" name="delete" checked /><%=
-      completeList[i].complete %>
-    </li>
-    <% } %>
+    <h2>Completed</h2>
+    <ul>
+      <% for(let i = 0; i < completeList.length; i++){ %>
+      <li class="list">
+        <input
+          type="checkbox"
+          name="complete"
+          checked
+          value="<%= completeList[i].complete %>"
+        /><%= completeList[i].complete %>
+      </li>
+      <% } %>
+    </ul>
     <button formaction="/deletetodo" type="submit">Delete</button>
   </form>
 </div>
