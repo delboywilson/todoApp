@@ -6,6 +6,9 @@ const expressLayouts = require("express-ejs-layouts");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+const { JSDOM } = require("jsdom");
+const { window } = new JSDOM("");
+const $ = require("jquery")(window);
 const app = express();
 const PORT = process.env.PORT;
 

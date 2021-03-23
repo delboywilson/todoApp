@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { pool, db } = require("../database");
+const { JSDOM } = require("jsdom");
+const { window } = new JSDOM("");
+const $ = require("jquery")(window);
 
 router.get("/", async (req, res) => {
   try {
@@ -18,7 +21,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/addtodo", function (req, res) {
+router.post("/addtodo", (req, res) => {
   let newTodo = req.body.newtodo;
   console.log(newTodo);
   db.none("INSERT INTO doing(todo) VALUES ($1);", [newTodo])
@@ -32,7 +35,7 @@ router.post("/addtodo", function (req, res) {
     });
 });
 
-router.post("/movetodo", function (req, res) {
+router.post("/movetodo", (req, res) => {
   let completeTodo = req.body.check;
   if (typeof completeTodo === "string")
     db.any("INSERT INTO completed(complete) VALUES($1);", [completeTodo])
@@ -68,10 +71,11 @@ router.post("/movetodo", function (req, res) {
   return res.redirect("/");
 });
 
-router.post("/deletetodo", function (req, res) {
+// need condition to handle empty delete
+router.post("/deletetodo", (req, res) => {
   let deleteTodo = req.body.complete;
-  console.log(deleteTodo);
-  if (typeof deleteTodo === "string")
+  if (typeof deleteTodo === "undefined") console.log("this is", deleteTodo);
+  else if (typeof deleteTodo === "string")
     db.none("DELETE FROM completed WHERE complete = $1;", [deleteTodo])
       .then(() => {
         res.redirect("/");

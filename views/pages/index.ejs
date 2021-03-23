@@ -35,9 +35,13 @@
         </li>
         <% } %>
       </ul>
-      <button formaction="/deletetodo" type="submit">
+      <button class="delete-btn" formaction="/deletetodo" type="submit">
         Delete checked items
       </button>
+      <div class="show-hide">
+        <p class="alert">No item to delete!</p>
+        <button class="alert-btn">Ok</button>
+      </div>
     </form>
   </div>
 </div>
