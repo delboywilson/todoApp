@@ -7,10 +7,13 @@
         type="text"
         name="newtodo"
         placeholder="write something..."
+        required
       />
       <button>Create new item</button>
-      <hr />
-      <h2>Todos</h2>
+    </form>
+    <hr />
+    <h2>Todos</h2>
+    <form action="/movetodo" method="POST">
       <ul>
         <% for( let i = 0; i < todoList.length; i++){ %>
         <li class="list">
@@ -19,9 +22,11 @@
         </li>
         <% } %>
       </ul>
-      <button formaction="/movetodo" type="submit">Move checked items</button>
-      <hr />
-      <h2>Completed</h2>
+      <button type="submit">Move checked items</button>
+    </form>
+    <hr />
+    <h2>Completed</h2>
+    <form action="/deletetodo" method="POST">
       <ul>
         <% for(let i = 0; i < completeList.length; i++){ %>
         <li class="list">
@@ -38,10 +43,10 @@
       <button class="delete-btn" formaction="/deletetodo" type="submit">
         Delete checked items
       </button>
-      <div class="show-hide">
-        <p class="alert">No item to delete!</p>
-        <button class="alert-btn">Ok</button>
-      </div>
     </form>
+    <div class="show-hide">
+      <p class="alert">No item to delete!</p>
+      <button class="alert-btn">Ok</button>
+    </div>
   </div>
 </div>

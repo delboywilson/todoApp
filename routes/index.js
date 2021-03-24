@@ -4,6 +4,7 @@ const { pool, db } = require("../database");
 const { JSDOM } = require("jsdom");
 const { window } = new JSDOM("");
 const $ = require("jquery")(window);
+const { check, validationResult } = require("express-validator");
 
 router.get("/", async (req, res) => {
   try {
@@ -20,20 +21,30 @@ router.get("/", async (req, res) => {
     });
   }
 });
-
-router.post("/addtodo", (req, res) => {
-  let newTodo = req.body.newtodo;
-  console.log(newTodo);
-  db.none("INSERT INTO doing(todo) VALUES ($1);", [newTodo])
-    .then(() => {
-      res.redirect("/");
-    })
-    .catch((err) => {
-      res.render("pages/error", {
-        err: err,
-      });
+// need condition to handle empty todo
+router.post("/addtodo", async (req, res) => {
+  try {
+    let newTodo = req.body.newtodo;
+    await db.none("INSERT INTO doing(todo) VALUES ($1);", [newTodo]);
+    res.redirect("/");
+  } catch (error) {
+    res.render("pages/error", {
+      err: error,
     });
+  }
 });
+// let newTodo = req.body.newtodo;
+//   console.log(newTodo);
+//   db.none("INSERT INTO doing(todo) VALUES ($1);", [newTodo])
+//     .then(() => {
+//       res.redirect("/");
+//     })
+//     .catch((err) => {
+//       res.render("pages/error", {
+//         err: err,
+//       });
+//     });
+// });
 
 router.post("/movetodo", (req, res) => {
   let completeTodo = req.body.check;
