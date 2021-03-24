@@ -1,15 +1,20 @@
 <div class="main-wrapper">
   <div class="container">
     <h2>Add a new item</h2>
-    <form action="/addtodo" method="POST">
-      <input
-        class="input"
-        type="text"
-        name="newtodo"
-        placeholder="write something..."
-        required
-      />
-      <button>Create new item</button>
+    <form action="/addtodo" method="POST" class="create-form" novalidate>
+      <div class="form-control">
+        <input
+          class="input"
+          type="text"
+          name="newtodo"
+          id="newtodo"
+          placeholder="write something..."
+        />
+        <button type="submit" id="submit">Create new item</button>
+        <span role="alert" id="todoError" aria-hidden="true">
+          Please write something
+        </span>
+      </div>
     </form>
     <hr />
     <h2>Todos</h2>
@@ -50,3 +55,5 @@
     </div>
   </div>
 </div>
+
+<script src="static/js/validation.js"></script>

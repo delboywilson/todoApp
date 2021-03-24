@@ -98,6 +98,20 @@ button:hover {
   /* visibility: visible; */
 }
 
+#todoError {
+  display: none;
+  font-size: 0.8em;
+}
+
+#todoError.visible {
+  display: block;
+  color: antiquewhite;
+}
+
+input.invalid {
+  border-color: red;
+}
+
 /* .show {
   visibility: visible;
 } */

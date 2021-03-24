@@ -4,7 +4,7 @@ const { pool, db } = require("../database");
 const { JSDOM } = require("jsdom");
 const { window } = new JSDOM("");
 const $ = require("jquery")(window);
-const { check, validationResult } = require("express-validator");
+const { check, setErrorFor } = require("express-validator");
 
 router.get("/", async (req, res) => {
   try {
